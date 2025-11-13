@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lessons - CodeFlash</title>
+    <link rel="stylesheet" href="../css/tokens.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="site-header" role="banner">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">CodeFlash</h1>
+                <nav class="main-nav" role="navigation" aria-label="Main navigation">
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="data.html" aria-current="page">Lessons</a></li>
+                        <li><a href="form.html">Suggest</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    Toggle theme
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" role="main">
+        <div class="container">
+            <h2>Available Lessons</h2>
+            
+            <section class="search-section">
+                <label for="lessonSearch" class="sr-only">Search lessons</label>
+                <input type="search" id="lessonSearch" class="search-input" placeholder="Filter lessons...">
+            </section>
+
+            <div class="lesson-grid" id="lessonContainer">
+                <article class="lesson-card">
+                    <h3>CSS Grid Layout</h3>
+                    <p>Two-dimensional layout system for the web</p>
+                    <div class="lesson-meta">
+                        <span class="category">CSS</span>
+                        <span class="difficulty">Beginner</span>
+                    </div>
+                </article>
+                
+                <article class="lesson-card">
+                    <h3>Flexbox Fundamentals</h3>
+                    <p>One-dimensional layout method</p>
+                    <div class="lesson-meta">
+                        <span class="category">CSS</span>
+                        <span class="difficulty">Beginner</span>
+                    </div>
+                </article>
+                
+                <article class="lesson-card">
+                    <h3>JavaScript Arrays</h3>
+                    <p>Working with array methods and manipulation</p>
+                    <div class="lesson-meta">
+                        <span class="category">JavaScript</span>
+                        <span class="difficulty">Intermediate</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+        <div class="container">
+            <p>&copy; 2024 CodeFlash. Built for academic purposes.</p>
+        </div>
+    </footer>
+
+    <script src="../js/accessibility.js"></script>
+</body>
+</html>

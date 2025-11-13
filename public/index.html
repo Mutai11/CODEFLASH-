@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeFlash - Learn Web Development</title>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="site-header" role="banner">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">CodeFlash</h1>
+                <nav class="main-nav" role="navigation" aria-label="Main navigation">
+                    <ul>
+                        <li><a href="index.html" aria-current="page">Home</a></li>
+                        <li><a href="views/data.html">Lessons</a></li>
+                        <li><a href="views/form.html">Suggest</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    Toggle theme
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" role="main">
+        <div class="container">
+            <section class="welcome-section">
+                <h2>Welcome to CodeFlash</h2>
+                <p>Master web development concepts through interactive flashcards and quizzes.</p>
+            </section>
+
+            <section class="search-section">
+                <label for="searchInput" class="sr-only">Search lessons</label>
+                <input type="search" id="searchInput" class="search-input" placeholder="Search lessons...">
+            </section>
+
+            <section class="featured-lessons">
+                <h3>Featured Topics</h3>
+                <div class="lesson-grid" id="lessonGrid">
+                    <div class="lesson-card">
+                        <h4>HTML Semantics</h4>
+                        <p>Learn proper document structure and accessibility.</p>
+                        <span class="difficulty-badge">Beginner</span>
+                    </div>
+                    <div class="lesson-card">
+                        <h4>CSS Grid</h4>
+                        <p>Master two-dimensional layout system.</p>
+                        <span class="difficulty-badge">Intermediate</span>
+                    </div>
+                    <div class="lesson-card">
+                        <h4>JavaScript ES6</h4>
+                        <p>Modern JavaScript features and syntax.</p>
+                        <span class="difficulty-badge">Intermediate</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+        <div class="container">
+            <p>&copy; 2024 CodeFlash. Built for academic purposes.</p>
+        </div>
+    </footer>
+
+    <script src="js/accessibility.js"></script>
+</body>
+</html>

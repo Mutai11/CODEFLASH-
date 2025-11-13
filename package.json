@@ -1,0 +1,13 @@
+{
+  "name": "codeflash",
+  "version": "1.0.0",
+  "description": "Micro-learning platform for web development",
+  "scripts": {
+    "dev": "http-server public -p 3000 -c-1",
+    "build": "echo 'No build process needed'",
+    "test": "echo 'No tests yet'"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

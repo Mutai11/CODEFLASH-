@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "app_name": "CodeFlash",
+    "version": "1.0.0",
+    "last_updated": "2024-05-20"
+  },
+  "lessons": [
+    {
+      "id": 1,
+      "title": "CSS Grid Basics",
+      "category": "CSS",
+      "difficulty": "Beginner",
+      "description": "Learn the fundamentals of the 2-dimensional grid system",
+      "content": "## Introduction\nCSS Grid Layout excels at dividing a page into major regions...",
+      "quiz": [
+        {
+          "question": "Which property turns a container into a grid?",
+          "options": ["display: grid", "display: flex", "grid-template: true"],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "ES6 Arrow Functions",
+      "category": "JavaScript",
+      "difficulty": "Intermediate",
+      "description": "Write shorter function syntax using the fat arrow",
+      "content": "## Syntax\nconst add = (a, b) => a + b;",
+      "quiz": [
+        {
+          "question": "Do arrow functions have their own 'this' context?",
+          "options": ["Yes", "No", "Only in strict mode"],
+          "answer": 1
+        }
+      ]
+    }
+  ]
+}

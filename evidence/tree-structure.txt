@@ -1,0 +1,30 @@
+.
+|-- .github
+|   `-- workflows
+|       `-- ci.yml
+|-- .gitignore
+|-- Dockerfile
+|-- README.md
+|-- data
+|   `-- db.json
+|-- docker-compose.yml
+|-- evidence
+|   |-- lighthouse-accessibility.html
+|   |-- lighthouse-data.html
+|   |-- lighthouse-form.html
+|   `-- tree-structure.txt
+|-- html-snippets.md
+|-- package-lock.json
+|-- package.json
+`-- public
+    |-- css
+    |   |-- style.css
+    |   `-- tokens.css
+    |-- index.html
+    |-- js
+    |   `-- accessibility.js
+    `-- views
+        |-- data.html
+        `-- form.html
+
+9 directories, 19 files

@@ -21,7 +21,28 @@ A lightweight, browser-based application designed to help developers quickly rev
 - [Team](#team)
 - [License](#license)
 
+<<<<<<< HEAD
 ##  Features
+=======
+## Data file and local dev
+
+The app reads lesson data from `/data/db.json` relative to the site root. When serving the `public/` directory directly (for example with `http-server` or `nginx`), ensure the data file is available under `public/data/db.json`.
+
+This repository includes a small npm helper that copies the top-level `data/db.json` into `public/data` for local development:
+
+```bash
+# copy data into public (also runs automatically before `npm run dev`)
+npm run prepare:static
+```
+
+Then start the dev server:
+
+```bash
+npm run dev
+```
+
+## Technologies
+>>>>>>> bb2c656 (dev: add prepare script, README note, and CI workflow for tests + smoke checks)
 
 ### Core Learning Features
 - **Flashcard Lessons**: Bite-sized lessons on web development concepts

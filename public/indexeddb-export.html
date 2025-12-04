@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>IndexedDB Exporter — Codeflash (dev)</title>
+  <style>
+    body{font-family:Segoe UI,Roboto,Arial;margin:24px;background:#f7f8fb;color:#111}
+    h1{font-size:20px;margin-bottom:6px}
+    p{margin-top:0;color:#333}
+    pre{background:#fff;border:1px solid #e3e6ef;padding:12px;overflow:auto}
+    button{margin:6px 8px 6px 0;padding:8px 12px;border-radius:6px;border:1px solid #cfd6ea;background:#fff}
+    #dbList{margin-top:12px}
+    .store{margin:8px 0;padding:8px;border-left:3px solid #d0d7ff;background:#fff}
+    .small{font-size:13px;color:#555}
+  </style>
+</head>
+<body>
+  <h1>IndexedDB Exporter (dev)</h1>
+  <p class="small">This helper page lists available IndexedDB databases and lets you export their contents as a JSON file for debugging/evidence. Run this page against the same origin as your app (e.g. <code>http://localhost:3000/indexeddb-export.html</code>).</p>
+
+  <div>
+    <button id="refreshBtn">List databases</button>
+    <button id="exportBtn">Export all DBs as JSON</button>
+    <span id="status" class="small"></span>
+  </div>
+
+  <div id="dbList"></div>
+
+  <script>
+    const status = document.getElementById('status');
+    const dbListEl = document.getElementById('dbList');
+    const refreshBtn = document.getElementById('refreshBtn');
+    const exportBtn = document.getElementById('exportBtn');
+
+    function setStatus(msg){ status.textContent = msg }
+
+    async function listDatabases(){
+      dbListEl.innerHTML = '';
+      setStatus('Listing databases...');
+      let dbInfos = [];
+      if (indexedDB.databases) {
+        try {
+          dbInfos = await indexedDB.databases();
+        } catch (e) {
+          console.warn('indexedDB.databases() failed', e);
+        }
+      }
+      // fallback: try to open common known names if nothing returned
+      const names = dbInfos.length ? dbInfos.map(d=>d.name).filter(Boolean) : [];
+      if (!names.length) {
+        // heuristic fallback: check for likely db names used by the app
+        names.push('codeflash');
+      }
+      for (const name of names){
+        const div = document.createElement('div');
+        div.className = 'store';
+        div.innerHTML = `<strong>${name}</strong> <span class="small">(click to expand)</span><pre id="p-${name}">loading...</pre>`;
+        dbListEl.appendChild(div);
+        renderDB(name, document.getElementById('p-'+name));
+      }
+      setStatus('Done');
+    }
+
+    async function renderDB(name, preEl){
+      try {
+        const db = await openDB(name);
+        const stores = Array.from(db.objectStoreNames || []);
+        const result = {};
+        for (const s of stores){
+          result[s] = await getAllFromStore(db, s);
+        }
+        preEl.textContent = JSON.stringify(result, null, 2);
+        db.close();
+      } catch (err){
+        preEl.textContent = 'Error: '+String(err);
+      }
+    }
+
+    function openDB(name){
+      return new Promise((resolve, reject)=>{
+        const req = indexedDB.open(name);
+        req.onsuccess = ()=> resolve(req.result);
+        req.onerror = ()=> reject(req.error || new Error('open failed'));
+      });
+    }
+
+    function getAllFromStore(db, storeName){
+      return new Promise((resolve, reject)=>{
+        try{
+          const tx = db.transaction(storeName, 'readonly');
+          const store = tx.objectStore(storeName);
+          const allReq = store.getAll();
+          allReq.onsuccess = ()=> resolve(allReq.result || []);
+          allReq.onerror = ()=> reject(allReq.error || new Error('getAll failed'));
+        } catch(e){ reject(e) }
+      });
+    }
+
+    async function exportAll(){
+      setStatus('Exporting...');
+      let dbInfos = [];
+      if (indexedDB.databases) {
+        try { dbInfos = await indexedDB.databases(); } catch(e){ console.warn(e) }
+      }
+      const names = dbInfos.length ? dbInfos.map(d=>d.name).filter(Boolean) : ['codeflash'];
+      const out = {};
+      for (const name of names){
+        try{
+          const db = await openDB(name);
+          const stores = Array.from(db.objectStoreNames || []);
+          out[name] = {};
+          for (const s of stores){
+            out[name][s] = await getAllFromStore(db, s);
+          }
+          db.close();
+        } catch(err){ out[name] = { error: String(err) } }
+      }
+      const blob = new Blob([JSON.stringify(out, null, 2)], {type: 'application/json'});
+      const ts = new Date().toISOString().replace(/[:.]/g,'-');
+      const filename = `indexeddb_export_${ts}.json`;
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove();
+      URL.revokeObjectURL(url);
+      setStatus('Exported: '+filename);
+    }
+
+    refreshBtn.addEventListener('click', ()=> listDatabases());
+    exportBtn.addEventListener('click', ()=> exportAll());
+
+    // auto-list on load
+    listDatabases().catch(e=> setStatus('Error listing DBs'));
+  </script>
+</body>
+</html>
